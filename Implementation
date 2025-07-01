@@ -1,0 +1,47 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from typing import Tuple, List, Optional
+from sklearn.datasets import make_blobs
+import random
+
+class KMeans:
+    """
+    K-Means clustering algorithm implementation.
+    
+    Attributes:
+        k (int): Number of clusters
+        max_iters (int): Maximum number of iterations
+        tolerance (float): Convergence tolerance
+        centroids (np.ndarray): Cluster centroids
+        labels (np.ndarray): Data point cluster assignments
+        inertia (float): Within-cluster sum of squares
+        history (List): History of centroids for visualization
+    """
+    
+    def __init__(self, k: int = 3, max_iters: int = 100, tolerance: float = 1e-4):
+        self.k = k
+        self.max_iters = max_iters
+        self.tolerance = tolerance
+        self.centroids = None
+        self.labels = None
+        self.inertia = None
+        self.history = []
+    
+    def _initialize_centroids(self, X: np.ndarray, method: str = 'random') -> np.ndarray:
+        """
+        Initialize cluster centroids.
+        
+        Args:
+            X (np.ndarray): Input data
+            method (str): Initialization method ('random' or 'kmeans++')
+            
+        Returns:
+            np.ndarray: Initial centroids
+        """
+        n_samples, n_features = X.shape
+        
+        if method == 'random':
+            # Random initialization
+            centroids = np.random.uniform(X.min(axis=0), X.max(axis=0), (self.k, n_features))
+        
+        elif method == 'kmeans++
